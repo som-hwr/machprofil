@@ -8,16 +8,14 @@ export interface PageHeadingProps {
 
 export function PageHeading({ title, subTitle }: PageHeadingProps) {
   return (
-    <div className="mb-8 sm:mb-12">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">
-            {title}
-          </h1>
-          <p className="text-base sm:text-lg text-muted-foreground">
-            {subTitle}
-          </p>
-        </div>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div className="text-center max-w-3xl mx-auto">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold gradient-text mb-4">
+          {title}
+        </h1>
+        <p className="text-lg sm:text-xl text-muted-foreground">
+          {subTitle}
+        </p>
       </div>
     </div>
   );
