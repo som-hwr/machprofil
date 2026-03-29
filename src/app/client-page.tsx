@@ -284,38 +284,38 @@ export default function ClientPage() {
       <section className="bg-muted/50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">
+            <Link href="/experience" className="text-center group cursor-pointer transition-all hover:scale-105">
+              <div className="text-4xl font-bold text-primary mb-2 group-hover:text-primary/80">
                 {stats.experience}
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-muted-foreground group-hover:text-foreground">
                 {langI18n.years_experience}
               </div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">
+            </Link>
+            <Link href="/projects" className="text-center group cursor-pointer transition-all hover:scale-105">
+              <div className="text-4xl font-bold text-primary mb-2 group-hover:text-primary/80">
                 {stats.projects}
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-muted-foreground group-hover:text-foreground">
                 {langI18n.projects_completed}
               </div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">
+            </Link>
+            <Link href="/projects" className="text-center group cursor-pointer transition-all hover:scale-105">
+              <div className="text-4xl font-bold text-primary mb-2 group-hover:text-primary/80">
                 {stats.clients}
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-muted-foreground group-hover:text-foreground">
                 {langI18n.happy_clients}
               </div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2">
+            </Link>
+            <Link href="/testimonials" className="text-center group cursor-pointer transition-all hover:scale-105">
+              <div className="text-4xl font-bold text-primary mb-2 group-hover:text-primary/80">
                 {stats.satisfaction}
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-muted-foreground group-hover:text-foreground">
                 {langI18n.satisfaction_rate}
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </section>

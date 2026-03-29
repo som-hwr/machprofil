@@ -318,13 +318,25 @@ export default function ClientPage() {
 
         {/* Main Content */}
         <div className="h-full flex flex-col lg:flex-row">
-          {/* Image Container */}
+          {/* Image/Video Container */}
           <div className="flex-1 flex items-center justify-center p-4 lg:p-8">
-            <img
-              src={currentPhoto.image}
-              alt={currentPhoto.title}
-              className="max-w-full max-h-full object-contain"
-            />
+            {currentPhoto.image.match(/\.(mp4|webm|ogg)$/i) ? (
+              <video
+                src={currentPhoto.image}
+                controls
+                autoPlay
+                className="max-w-full max-h-full"
+              >
+                <source src={currentPhoto.image} />
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <img
+                src={currentPhoto.image}
+                alt={currentPhoto.title}
+                className="max-w-full max-h-full object-contain"
+              />
+            )}
           </div>
 
           {/* Details Sidebar */}
@@ -484,32 +496,49 @@ export default function ClientPage() {
             onClearAll={handleClearAll}
           />
 
-          {/* Photos Grid or Empty State */}
+          {/* Photos/Videos Grid or Empty State */}
           {currentPhotos.length > 0 ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {currentPhotos.map((item: Photo) => (
-                <Card
-                  key={item.id}
-                  className="overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow"
-                  onClick={() => handlePhotoClick(item)}
-                >
-                  <div className="aspect-square overflow-hidden relative">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-3">
-                    <h3 className="font-semibold text-sm mb-1 line-clamp-1">
-                      {item.title}
-                    </h3>
-                    <Badge variant="secondary" className="text-xs">
-                      {item.album}
-                    </Badge>
-                  </div>
-                </Card>
-              ))}
+              {currentPhotos.map((item: Photo) => {
+                const isVideo = item.image.match(/\.(mp4|webm|ogg)$/i);
+                return (
+                  <Card
+                    key={item.id}
+                    className="overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow"
+                    onClick={() => handlePhotoClick(item)}
+                  >
+                    <div className="aspect-square overflow-hidden relative">
+                      {isVideo ? (
+                        <>
+                          <video
+                            src={item.image}
+                            className="w-full h-full object-cover"
+                            muted
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-colors">
+                            {showLucidIcon("play-circle", "w-12 h-12 text-white")}
+                          </div>
+                        </>
+                      ) : (
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                      )}
+                    </div>
+                    <div className="p-3">
+                      <h3 className="font-semibold text-sm mb-1 line-clamp-1 flex items-center gap-1">
+                        {isVideo && showLucidIcon("video", "w-3 h-3")}
+                        {item.title}
+                      </h3>
+                      <Badge variant="secondary" className="text-xs">
+                        {item.album}
+                      </Badge>
+                    </div>
+                  </Card>
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-12">

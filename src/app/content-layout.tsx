@@ -2,6 +2,7 @@
 
 import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 import { usePortfolio } from "@/components/context/PortfolioContext";
 import { useContentLoader } from "@/components/hooks/use-content-loader";
 import { AboutContent } from "@/lib/types/about.contract";
@@ -30,6 +31,7 @@ export default function ContentLayout({
         </div>
       </main>
       <Footer siteTitle={about_content.bio.name} />
+      <ScrollToTop />
     </div>
   );
 }

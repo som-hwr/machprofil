@@ -27,14 +27,18 @@ export default function BottomNav() {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
+    setIsVisible(true);
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
 
-      if (currentScrollY < lastScrollY || currentScrollY < 10) {
-        // Scrolling up or at the top
+      if (currentScrollY + windowHeight >= documentHeight - 50) {
         setIsVisible(true);
-      } else if (currentScrollY > lastScrollY && currentScrollY > 10) {
-        // Scrolling down
+      } else if (currentScrollY < lastScrollY || currentScrollY < 10) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setIsVisible(false);
       }
 
@@ -56,7 +60,7 @@ export default function BottomNav() {
 
   return (
     <nav
-      className={`fixed bottom-0 left-0 right-0 z-50 bg-background border-t shadow-lg transition-transform duration-300 ${
+      className={`fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-t shadow-lg transition-all duration-300 ${
         isVisible ? "translate-y-0" : "translate-y-full"
       }`}
     >
@@ -69,16 +73,21 @@ export default function BottomNav() {
               <Link
                 key={item.key}
                 href={item.path}
-                className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
+                className={`flex flex-col items-center justify-center flex-1 h-full transition-all relative group ${
                   active
-                    ? "text-primary"
+                    ? "text-primary font-bold"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                {showLucidIcon(item.icon, "", 24)}
-                <span className="text-xs mt-1">
+                <div className={`${active ? "scale-110" : "group-hover:scale-105"} transition-transform`}>
+                  {showLucidIcon(item.icon, "", 24)}
+                </div>
+                <span className={`text-xs mt-1 ${active ? "font-bold" : ""}`}>
                   {langI18n[item.key as keyof typeof langI18n]}
                 </span>
+                {active && (
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-primary rounded-b-full" />
+                )}
               </Link>
             );
           })}

@@ -13,6 +13,7 @@ import { showLucidIcon } from "@/components/lucid-icon-map";
 import { useContentLoader } from "@/components/hooks/use-content-loader";
 import { AboutContent } from "@/lib/types/about.contract";
 import { emptyAboutContent } from "@/data/configs/constants/empty.data";
+import AppointmentBooking from "@/components/shared/AppointmentBooking";
 
 export default function ClientPage() {
   const { toast } = useToast();
@@ -144,6 +145,22 @@ export default function ClientPage() {
             <p className="text-sm text-muted-foreground">
               {langI18n.quick_response_detail}
             </p>
+          </Card>
+
+          <Card className="p-6 bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
+            <h3 className="font-semibold mb-2 flex items-center gap-2">
+              {showLucidIcon("calendar-check", "w-5 h-5 text-primary")}
+              Schedule a Meeting
+            </h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Prefer a face-to-face conversation? Book a meeting directly on my calendar.
+            </p>
+            <AppointmentBooking
+              calendlyUrl="https://calendly.com/your-link"
+              variant="default"
+              size="default"
+              buttonText="Schedule Now"
+            />
           </Card>
         </div>
 

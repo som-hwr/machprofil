@@ -64,16 +64,20 @@ export default function ClientPage() {
             </p>
             <p className="text-lg text-muted-foreground mb-4">{bio.tagline}</p>
 
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start text-sm text-muted-foreground mb-6">
-              <div className="flex items-center gap-2">
-                {showLucidIcon("map-pin", "w-4 h-4")}
-                <span>{bio.location}</span>
+            <div className="flex flex-wrap gap-6 justify-center md:justify-start text-sm text-muted-foreground mb-6">
+              <div className="flex items-center gap-2.5">
+                <div className="w-5 h-5 flex items-center justify-center">
+                  {showLucidIcon("map-pin", "w-5 h-5")}
+                </div>
+                <span className="leading-none">{bio.location}</span>
               </div>
-              <div className="flex items-center gap-2">
-                {showLucidIcon("mail", "w-4 h-4")}
+              <div className="flex items-center gap-2.5">
+                <div className="w-5 h-5 flex items-center justify-center">
+                  {showLucidIcon("mail", "w-5 h-5")}
+                </div>
                 <a
                   href={`mailto:${bio.email}`}
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-primary transition-colors leading-none"
                 >
                   {bio.email}
                 </a>
@@ -82,7 +86,7 @@ export default function ClientPage() {
 
             {/* Social Links */}
             {socialLinks && (
-              <div className="flex gap-3 justify-center md:justify-start">
+              <div className="flex gap-3 justify-center md:justify-start flex-wrap">
                 {socialLinks.map((social) => {
                   return (
                     <a
@@ -90,8 +94,9 @@ export default function ClientPage() {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-muted hover:bg-primary hover:text-primary-foreground transition-colors"
+                      className="p-3 rounded-xl bg-muted hover:bg-primary hover:text-primary-foreground transition-all hover:scale-110 shadow-sm hover:shadow-md"
                       aria-label={social.platform}
+                      title={social.platform}
                     >
                       {showLucidIcon(social.icon, "w-5 h-5")}
                     </a>
@@ -117,12 +122,14 @@ export default function ClientPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {stats.map((stat) => {
             return (
-              <Card key={stat.label} className="text-center">
+              <Card key={stat.label} className="text-center hover:shadow-lg transition-all hover:scale-105">
                 <CardContent className="p-6">
-                  {showLucidIcon(
-                    stat.icon,
-                    "w-8 h-8 mx-auto mb-3 text-primary",
-                  )}
+                  <div className="w-12 h-12 mx-auto mb-3 flex items-center justify-center rounded-full bg-primary/10">
+                    {showLucidIcon(
+                      stat.icon,
+                      "w-6 h-6 text-primary",
+                    )}
+                  </div>
                   <div className="text-3xl font-bold mb-1">{stat.value}</div>
                   <div className="text-sm text-muted-foreground">
                     {stat.label}
@@ -139,15 +146,15 @@ export default function ClientPage() {
         <div className="space-y-8 mb-12">
           {sections.map((section) => {
             return (
-              <Card key={section.id}>
+              <Card key={section.id} className="hover:shadow-md transition-shadow">
                 <CardContent className="p-6 sm:p-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                      {showLucidIcon(section.icon, "w-5 h-5")}
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      {showLucidIcon(section.icon, "w-6 h-6")}
                     </div>
                     <h2 className="text-2xl font-bold">{section.title}</h2>
                   </div>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed ml-16">
                     {section.content}
                   </p>
                 </CardContent>
@@ -159,10 +166,12 @@ export default function ClientPage() {
 
       {/* Interests/Hobbies */}
       {interests.length > 0 && (
-        <Card className="mb-12">
+        <Card className="mb-12 hover:shadow-md transition-shadow">
           <CardContent className="p-6 sm:p-8">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              {showLucidIcon("heart", "w-6 h-6 text-primary")}
+            <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+              <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-primary/10">
+                {showLucidIcon("heart", "w-5 h-5 text-primary")}
+              </div>
               {langI18n.interests_hobbies}
             </h2>
             <div className="flex flex-wrap gap-3">
@@ -171,10 +180,12 @@ export default function ClientPage() {
                   <Badge
                     key={interest.name}
                     variant="secondary"
-                    className="px-4 py-2 text-sm"
+                    className="px-4 py-2.5 text-sm hover:bg-primary hover:text-primary-foreground transition-colors cursor-default"
                   >
-                    {showLucidIcon(interest.icon, "w-4 h-4 mr-2")}
-                    {interest.name}
+                    <div className="flex items-center gap-2">
+                      {showLucidIcon(interest.icon, "w-4 h-4")}
+                      <span>{interest.name}</span>
+                    </div>
                   </Badge>
                 );
               })}
